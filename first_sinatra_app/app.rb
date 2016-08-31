@@ -1,11 +1,19 @@
 require 'sinatra'
 
 get '/' do
-  "Hello"
+  '<h1>Hello, welcome to the <em>home</em> page.</h1>'
+end
+
+get '/sinatra' do
+  '<h3>I love <a href="http://www.sinatrarb.com/">Sinatra!</a></h3>'
 end
 
 get '/home' do
   "Home"
+end
+
+get '/cat' do
+  send_file 'cat.html'
 end
 
 get '/home/:name' do
