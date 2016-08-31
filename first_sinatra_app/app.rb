@@ -9,7 +9,7 @@ get '/sinatra' do
 end
 
 get '/home' do
-  "Home"
+  erb :home
 end
 
 get '/cat' do
