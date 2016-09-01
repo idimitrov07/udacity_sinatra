@@ -17,7 +17,7 @@ get '/' do
     <div id='container'>
 
       <div id='header'>
-        <a href='/'><img src='/logo-white.png' alt='logo image' class='logo'/></a>
+        <a href='/'><img src='/logo-black-text.png' alt='logo image' class='logo'/></a>
         <a href='/team' class='nav'>Team</a>
         <a href='/products' class='nav'>Products</a>
       </div>
