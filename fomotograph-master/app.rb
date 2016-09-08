@@ -2,10 +2,11 @@ require 'sinatra'
 require 'HTTParty'
 require 'json'
 
+DATA = HTTParty.get('https://fomotograph-api.udacity.com/products.json')['photos']
+LOCATIONS = %w(canada england france ireland mexico scotland taiwan us).freeze
+
 get '/' do
   # HOME LANDING PAGE SHOWING BANNER PHOTO, TITLE, AND SUBTITLE
-  DATA = HTTParty.get('https://fomotograph-api.udacity.com/products.json')['photos']
-  LOCATIONS = %w(canada england france ireland mexico scotland taiwan us).freeze
   erb "<!DOCTYPE html>
   <html>
   <head>
@@ -90,6 +91,10 @@ get '/team' do
 end
 
 get '/products' do
+  @products = []
+  LOCATIONS.each do |location|
+    @products.push DATA.select { |product| product['location'] == location }.sample
+  end
   # PRODUCTS PAGE LISTING ALL THE PRODUCTS
   erb "<!DOCTYPE html>
   <html>
@@ -113,14 +118,14 @@ get '/products' do
         <h1> All Products </h1>
         <div id='wrapper'>
 
-          <% LOCATIONS.each do |location| %>
-          <a href='/products/location/<%= location %>'>
+          <% @products.each do |product| %>
+          <a href='/products/location/<%= product['location'] %>'>
           <div class='product'>
             <div class='thumb'>
-              <img src='<%= DATA.select { |product| product['location'] == location }.sample['url'] %>' />
+              <img src='<%= product['url'] %>' />
             </div>
             <div class='caption'>
-              <%= location != 'us' ? location.capitalize : location.upcase %>
+              <%= product['location'] != 'us' ? product['location'].capitalize : product['location'].upcase %>
             </div>
           </div>
           </a>
