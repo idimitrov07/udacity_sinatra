@@ -1,6 +1,5 @@
 require 'sinatra'
-require 'HTTParty'
-require 'json'
+require_relative 'models/product.rb'
 
 DATA = HTTParty.get('https://fomotograph-api.udacity.com/products.json')['photos']
 LOCATIONS = %w(canada england france ireland mexico scotland taiwan us).freeze
